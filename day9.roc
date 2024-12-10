@@ -4,16 +4,24 @@ app [main] {
 }
 
 import pf.Stdout
-import parser.Parser exposing [Parser]
-import parser.String exposing [string]
+import pf.Utc
+# import parser.Parser exposing [Parser]
+# import parser.String exposing [string]
 import "day9test.txt" as testText : Str
 import "day9.txt" as puzzleText : Str
 
+time = \{} -> Utc.now {} |> Task.map Utc.toMillisSinceEpoch
 main =
     Stdout.line! "Test 1: $(part1 testText)"
+    part1Start = time! {}
     Stdout.line! "Part 1: $(part1 puzzleText)"
+    part1End = time! {}
+    Stdout.line! "Part 1 time: $(Num.toStr (part1End - part1Start))ms"
     Stdout.line! "Test 2: $(part2 testText)"
+    part2Start = time! {}
     Stdout.line! "Part 2: $(part2 puzzleText)"
+    part2End = time! {}
+    Stdout.line! "Part 2 time: $(Num.toStr (part2End - part2Start))ms"
 
 part1 : Str -> Str
 part1 = \input ->
