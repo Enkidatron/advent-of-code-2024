@@ -5,6 +5,7 @@ app [main] {
 }
 
 import pf.Stdout
+import pf.Utc
 import parser.Parser
 import parser.String exposing [string]
 import array2d.Array2D
@@ -12,11 +13,18 @@ import array2d.Index2D
 import "day10test.txt" as testText : Str
 import "day10.txt" as puzzleText : Str
 
+time = \{} -> Utc.now {} |> Task.map Utc.toMillisSinceEpoch
 main =
     Stdout.line! "Test 1: $(part1 testText)"
+    part1Start = time! {}
     Stdout.line! "Part 1: $(part1 puzzleText)"
+    part1End = time! {}
+    Stdout.line! "Part 1 time: $(Num.toStr (part1End - part1Start))ms"
     Stdout.line! "Test 2: $(part2 testText)"
+    part2Start = time! {}
     Stdout.line! "Part 2: $(part2 puzzleText)"
+    part2End = time! {}
+    Stdout.line! "Part 2 time: $(Num.toStr (part2End - part2Start))ms"
 
 part1 : Str -> Str
 part1 = \input ->
